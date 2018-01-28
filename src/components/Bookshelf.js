@@ -10,6 +10,7 @@ class Bookshelf extends React.Component {
           <BooksGrid
             category={this.props.category}
             books={this.props.books}
+            onMoveBook={this.props.onMoveBook}
           />
         </div>
       </div>

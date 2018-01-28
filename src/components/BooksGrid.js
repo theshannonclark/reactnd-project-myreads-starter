@@ -15,7 +15,9 @@ class BooksGrid extends React.Component {
           .map(bookId => (
             <Book
               key={bookId}
+              bookId={bookId}
               book={books[bookId]}
+              onMoveBook={this.props.onMoveBook}
             />
           ))
         }
