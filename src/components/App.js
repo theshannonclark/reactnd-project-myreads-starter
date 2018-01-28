@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { Route, Link } from 'react-router-dom';
-// import * as BooksAPI from './BooksAPI'
-import './App.css'
+// import * as BooksAPI from '../utils/BooksAPI'
+import '../css/App.css';
 
 class BooksApp extends React.Component {
   state = {
@@ -191,4 +191,4 @@ class BooksApp extends React.Component {
   }
 }
 
-export default BooksApp
+export default BooksApp;
