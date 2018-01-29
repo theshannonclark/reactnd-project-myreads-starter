@@ -5,12 +5,11 @@ import SearchBooks from './SearchBooks';
 import ListBooks from './ListBooks';
 
 import * as BooksAPI from '../utils/BooksAPI'
-import defaultBooks from '../bookdata';
 import '../css/App.css';
 
 class BooksApp extends React.Component {
   state = {
-    books: defaultBooks
+    books: {}
   };
 
   componentDidMount() {
