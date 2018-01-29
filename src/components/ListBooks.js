@@ -4,6 +4,13 @@ import Bookshelf from './Bookshelf';
 
 class ListBooks extends React.Component {
   render() {
+    const shelves = ['currentlyReading', 'wantToRead', 'read'];
+    const shelfTitles = {
+      'currentlyReading': 'Currently Reading',
+      'wantToRead': "Want to Read",
+      'read': 'Read'
+    };
+
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -11,26 +18,15 @@ class ListBooks extends React.Component {
         </div>
         <div className="list-books-content">
           <div>
-            <Bookshelf
-              title="Currently Reading"
-              category="currentlyReading"
-              books={this.props.books}
-              onMoveBook={this.props.onMoveBook}
-            />
-
-            <Bookshelf
-              title="Want to Read"
-              category="wantToRead"
-              books={this.props.books}
-              onMoveBook={this.props.onMoveBook}
-            />
-
-            <Bookshelf
-              title="Read"
-              category="read"
-              books={this.props.books}
-              onMoveBook={this.props.onMoveBook}
-            />
+            {shelves.map(shelf => (
+              <Bookshelf
+                key={shelf}
+                title={shelfTitles[shelf]}
+                category={shelf}
+                books={this.props.books}
+                onMoveBook={this.props.onMoveBook}
+              />
+            ))}
           </div>
         </div>
         <div className="open-search">
