@@ -1,34 +1,54 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+
 import SearchBooks from './SearchBooks';
 import ListBooks from './ListBooks';
-// import * as BooksAPI from '../utils/BooksAPI'
-import sampleBooks from '../bookdata';
+
+import * as BooksAPI from '../utils/BooksAPI'
+import defaultBooks from '../bookdata';
 import '../css/App.css';
 
 class BooksApp extends React.Component {
   state = {
-    books: sampleBooks
+    books: defaultBooks
   };
+
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+      const newBooks = {};
+
+      books.forEach((book) => {
+        newBooks[book.id] = this.createBook(book);
+      });
+      this.setState({books: newBooks});
+    });
+  }
 
   validShelf(shelf) {
     return [
-      'currentlyReading',
-      'wantToRead',
-      'read',
-      'none'
+      'currentlyReading', 'wantToRead',
+      'read', 'none'
     ].includes(shelf);
-  } 
+  }
+
+  createBook(book) {
+    return {
+      title: book.title,
+      authors: book.authors,
+      shelf: book.shelf,
+      cover: {
+        width: 128,
+        height: 176,
+        backgroundImage: book.imageLinks.thumbnail
+      }
+    };
+  }
 
   moveBook(bookId, newShelf) {
     const book = this.state.books[bookId];
     newShelf = this.validShelf(newShelf) ? newShelf : book.shelf;
 
-    /* books is an object in which each book is also an object,
-     * which makes it a little bit difficult to update.
-     * Maybe there's a better way to do this...
-     */
-    const updatedBook = {...book, 'shelf': newShelf};
+    const updatedBook = {...book, shelf: newShelf};
     this.setState({
       books: {...this.state.books, [bookId]: updatedBook}
     });

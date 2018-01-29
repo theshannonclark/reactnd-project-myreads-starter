@@ -1,5 +1,5 @@
 // Sample book data
-const sampleBooks = {
+const defaultBooks = {
   'tkam': {
     title: 'To Kill a Mockingbird',
     authors: ['Harper Lee'],
@@ -72,4 +72,4 @@ const sampleBooks = {
   }
 };
 
-export default sampleBooks;
+export default defaultBooks;
