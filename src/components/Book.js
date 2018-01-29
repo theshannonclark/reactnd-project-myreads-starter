@@ -16,7 +16,7 @@ class Book extends React.Component {
       <li>
         <div className="book">
           <div className="book-top">
-            <img className="book-cover" src={book.cover.backgroundImage} alt={book.title} />
+            <img className="book-cover" src={book.cover} alt={book.title} />
             <div className="book-shelf-changer">
               <select name="shelf" value={book.shelf} onChange={(event) => this.handleBookShelfChange(event)}>
                 <option value="none" disabled>Move to...</option>

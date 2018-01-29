@@ -35,11 +35,7 @@ class BooksApp extends React.Component {
       title: book.title,
       authors: book.authors,
       shelf: book.shelf,
-      cover: {
-        width: 128,
-        height: 176,
-        backgroundImage: book.imageLinks.thumbnail
-      }
+      cover: book.imageLinks.thumbnail
     };
   }
 
