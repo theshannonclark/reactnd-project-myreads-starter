@@ -1,13 +1,14 @@
 import React from 'react';
 
+
 class Book extends React.Component {
 
-  handleBookShelfChange(event) {
+  handleBookShelfChange = (event) => {
     const id = this.props.bookId;
     const newShelf = event.target.value;
 
     this.props.onMoveBook(id, newShelf);
-  }
+  };
 
   render() {
     const book = this.props.book;
@@ -32,7 +33,7 @@ class Book extends React.Component {
         </div>
       </li>
     );
-  }
+  };
 }
 
 export default Book;

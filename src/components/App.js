@@ -7,6 +7,7 @@ import ListBooks from './ListBooks';
 import * as BooksAPI from '../utils/BooksAPI';
 import '../css/App.css';
 
+
 class BooksApp extends React.Component {
   state = {
     books: {}
@@ -23,14 +24,14 @@ class BooksApp extends React.Component {
     });
   }
 
-  validShelf(shelf) {
+  validShelf = (shelf) => {
     return [
       'currentlyReading', 'wantToRead',
       'read', 'none'
     ].includes(shelf);
-  }
+  };
 
-  createBook(book) {
+  createBook = (book) => {
     return {
       title: book.title || '',
       authors: book.authors || '',
@@ -38,9 +39,9 @@ class BooksApp extends React.Component {
       // Some books don't have an imageLinks property
       cover: (book.imageLinks) ? book.imageLinks.thumbnail : ''
     };
-  }
+  };
 
-  moveBook(bookId, newShelf) {
+  moveBook = (bookId, newShelf) => {
     const book = this.state.books[bookId];
     newShelf = this.validShelf(newShelf) ? newShelf : book.shelf;
 
@@ -49,39 +50,46 @@ class BooksApp extends React.Component {
       books: {...this.state.books, [bookId]: updatedBook}
     });
     this.updateShelf(bookId, newShelf);
-  }
+  };
 
-  addBook(bookId, newBook) {
+  addBook = (bookId, newBook) => {
     this.setState({
       books: {...this.state.books, [bookId]: newBook}
     });
     this.updateShelf(bookId, newBook.shelf);
-  }
+  };
 
-  updateShelf(bookId, newShelf) {
+  updateShelf = (bookId, newShelf) => {
     BooksAPI.update({id: bookId}, newShelf);
-  }
+  };
 
   render() {
     return (
       <div className="app">
         <Route exact path="/" render={() => (
           <ListBooks
+            title="MyReads"
             books={this.state.books}
-            onMoveBook={this.moveBook.bind(this)}
+            onMoveBook={this.moveBook}
+            shelves={['currentlyReading', 'wantToRead', 'read']}
+            shelfTitles={{
+              'currentlyReading': 'Currently Reading',
+              'wantToRead': "Want to Read",
+              'read': 'Read'
+            }}
           />
         )}/>
 
         <Route exact path="/search" render={() => (
           <SearchBooks
             books={this.state.books}
-            addBook={this.addBook.bind(this)}
+            addBook={this.addBook}
             createBook={this.createBook}
           />
         )}/>
       </div>
-    )
+    );
   };
-}
+};
 
 export default BooksApp;

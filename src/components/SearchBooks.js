@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import * as BooksAPI from '../utils/BooksAPI';
+
 import BooksGrid from './BooksGrid';
+
+import * as BooksAPI from '../utils/BooksAPI';
+
 
 class SearchBooks extends React.Component {
   state = {
@@ -9,13 +12,13 @@ class SearchBooks extends React.Component {
     searchResults: {}
   };
 
-  handleSearch(event) {
+  handleSearch = (event) => {
     this.setState({query: event.target.value}, () => {
-      this.performSearch.call(this, this.state.query);
+      this.performSearch(this.state.query);
     });
-  }
+  };
 
-  performSearch(query) {
+  performSearch = (query) => {
     BooksAPI.search(query).then((books) => {
       const newBooks = {};
 
@@ -30,9 +33,9 @@ class SearchBooks extends React.Component {
       }
       this.setState({searchResults: newBooks});
     });
-  }
+  };
 
-  moveSearchedBook(bookId, newShelf) {
+  moveSearchedBook = (bookId, newShelf) => {
     const searchedBook = {...this.state.searchResults[bookId]};
     searchedBook.shelf = newShelf;
 
@@ -43,7 +46,7 @@ class SearchBooks extends React.Component {
       }
     });
     this.props.addBook(bookId, searchedBook);
-  }
+  };
 
 	render() {
 		return (
@@ -52,7 +55,7 @@ class SearchBooks extends React.Component {
           <Link className="close-search" to="/">Close</Link>
           <div className="search-books-input-wrapper">
             <input type="text" value={this.state.query}
-              onChange={(event) => this.handleSearch.call(this, event)} 
+              onChange={(event) => this.handleSearch(event)} 
               placeholder="Search by title or author"/>
           </div>
         </div>
@@ -60,12 +63,12 @@ class SearchBooks extends React.Component {
           <BooksGrid
             shelf='all'
             books={this.state.searchResults}
-            onMoveBook={this.moveSearchedBook.bind(this)}
+            onMoveBook={this.moveSearchedBook}
           />
         </div>
       </div>
 		);
-	}
+	};
 }
 
 export default SearchBooks;
