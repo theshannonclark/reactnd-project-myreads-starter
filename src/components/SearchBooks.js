@@ -21,6 +21,10 @@ class SearchBooks extends React.Component {
 
       if (books instanceof Array) {
         books.forEach((book) => {
+          const cachedBook = this.props.books[book.id];
+          if (typeof cachedBook !== 'undefined') {
+            book.shelf = cachedBook.shelf;
+          }
           newBooks[book.id] = this.props.createBook(book);
         });
       }
