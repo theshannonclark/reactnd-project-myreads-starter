@@ -22,7 +22,7 @@ class ListBooks extends React.Component {
               <Bookshelf
                 key={shelf}
                 title={shelfTitles[shelf]}
-                category={shelf}
+                shelf={shelf}
                 books={this.props.books}
                 onMoveBook={this.props.onMoveBook}
               />

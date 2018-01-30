@@ -50,6 +50,10 @@ class BooksApp extends React.Component {
     BooksAPI.update({id: bookId}, newShelf);
   }
 
+  addBook(bookId, book) {
+    // TODO: add book to state
+  }
+
   render() {
     return (
       <div className="app">
@@ -59,7 +63,13 @@ class BooksApp extends React.Component {
             onMoveBook={this.moveBook.bind(this)}
           />
         )}/>
-        <Route exact path="/search" component={SearchBooks} />
+
+        <Route exact path="/search" render={() => (
+          <SearchBooks
+            books={this.state.books}
+            onAddBook={this.addBook.bind(this)}
+          />
+        )}/>
       </div>
     )
   };
