@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import SearchBooks from './SearchBooks';
 import ListBooks from './ListBooks';
 
-import * as BooksAPI from '../utils/BooksAPI'
+import * as BooksAPI from '../utils/BooksAPI';
 import '../css/App.css';
 
 class BooksApp extends React.Component {
@@ -32,10 +32,11 @@ class BooksApp extends React.Component {
 
   createBook(book) {
     return {
-      title: book.title,
-      authors: book.authors,
-      shelf: book.shelf,
-      cover: book.imageLinks.thumbnail
+      title: book.title || '',
+      authors: book.authors || '',
+      shelf: book.shelf || 'none',
+      // Some books don't have an imageLinks property
+      cover: (book.imageLinks) ? book.imageLinks.thumbnail : ''
     };
   }
 
@@ -67,7 +68,8 @@ class BooksApp extends React.Component {
         <Route exact path="/search" render={() => (
           <SearchBooks
             books={this.state.books}
-            onAddBook={this.addBook.bind(this)}
+            addBook={this.addBook.bind(this)}
+            createBook={this.createBook}
           />
         )}/>
       </div>
