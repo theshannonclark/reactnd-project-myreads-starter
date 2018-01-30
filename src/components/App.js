@@ -48,11 +48,18 @@ class BooksApp extends React.Component {
     this.setState({
       books: {...this.state.books, [bookId]: updatedBook}
     });
-    BooksAPI.update({id: bookId}, newShelf);
+    this.updateShelf(bookId, newShelf);
   }
 
-  addBook(bookId, book) {
-    // TODO: add book to state
+  addBook(bookId, newBook) {
+    this.setState({
+      books: {...this.state.books, [bookId]: newBook}
+    });
+    this.updateShelf(bookId, newBook.shelf);
+  }
+
+  updateShelf(bookId, newShelf) {
+    BooksAPI.update({id: bookId}, newShelf);
   }
 
   render() {

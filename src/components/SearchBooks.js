@@ -32,6 +32,19 @@ class SearchBooks extends React.Component {
     });
   }
 
+  moveSearchedBook(bookId, newShelf) {
+    const searchedBook = {...this.state.searchResults[bookId]};
+    searchedBook.shelf = newShelf;
+
+    this.setState({
+      searchResults: {
+        ...this.state.searchResults,
+        [bookId]: searchedBook
+      }
+    });
+    this.props.addBook(bookId, searchedBook);
+  }
+
 	render() {
 		return (
       <div className="search-books">
@@ -47,7 +60,7 @@ class SearchBooks extends React.Component {
           <BooksGrid
             shelf='all'
             books={this.state.searchResults}
-            onMoveBook={this.props.addBook}
+            onMoveBook={this.moveSearchedBook.bind(this)}
           />
         </div>
       </div>
